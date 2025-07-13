@@ -28,6 +28,11 @@ public class Prescription {
     private String doctorId;
 
     @NotNull(message = "Medications are required")
+    @Size(min = 1, max = 100, message = "At least one medication must be specified")
+    @NotNull
+    private String medication;
+
+    @NotNull(message = "Medications are required")
     @Size(min = 1, message = "At least one medication must be specified")
     private List<Medication> medications;
 
@@ -47,15 +52,15 @@ public class Prescription {
         @Size(min = 3, max = 100, message = "Medication name cannot exceed 100 characters")
         private String name;
 
-        @NotBlank(message = "Dosage is required")
-        @Size(max = 50, message = "Dosage instructions cannot exceed 50 characters")
+        // @NotBlank(message = "Dosage is required")
+        // @Size(max = 50, message = "Dosage instructions cannot exceed 50 characters")
         private String dosage;
 
-        @NotBlank(message = "Frequency is required")
-        @Size(max = 50, message = "Frequency cannot exceed 50 characters")
+        // @NotBlank(message = "Frequency is required")
+        // @Size(max = 50, message = "Frequency cannot exceed 50 characters")
         private String frequency;
 
-        @Min(value = 1, message = "Duration must be at least 1 day")
+        // @Min(value = 1, message = "Duration must be at least 1 day")
         private int durationDays;
 
         // Constructors, Getters and Setters
@@ -79,14 +84,23 @@ public class Prescription {
         public void setDurationDays(int durationDays) { this.durationDays = durationDays; }
     }
 
+    // Temporary function to support simple medication functionality
+    private void medicationToMedications(String medication) {
+        Medication medicationExt = new Medication();
+        medicationExt.setName(medication);
+        this.medications.clear();
+        this.medications.add(medicationExt);
+    }
+
     // Constructors
     public Prescription() {}
 
-    public Prescription(String patientName, Long appointmentId, String doctorId, List<Medication> medications) {
+    public Prescription(String patientName, Long appointmentId, String doctorId, String medication) {
         this.patientName = patientName;
         this.appointmentId = appointmentId;
         this.doctorId = doctorId;
-        this.medications = medications;
+        this.medication = medication;
+        this.medicationToMedications(medication);
     }
 
     // Getters and Setters
@@ -98,6 +112,12 @@ public class Prescription {
     public void setAppointmentId(Long appointmentId) { this.appointmentId = appointmentId; }
     public String getDoctorId() { return doctorId; }
     public void setDoctorId(String doctorId) { this.doctorId = doctorId; }
+    public String getMedication() { return medication; }
+    public void setMedication(String medication) { 
+      this.medication = medication; 
+      this.medicationToMedications(medication);
+    }
+    
     public List<Medication> getMedications() { return medications; }
     public void setMedications(List<Medication> medications) { this.medications = medications; }
     public String getDoctorNotes() { return doctorNotes; }
