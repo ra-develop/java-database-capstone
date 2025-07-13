@@ -145,11 +145,11 @@ public class Patient {
     }
 
     // Reporting
-    @Transient
-    @JsonIgnore
-    public String getDemographics() {
-        return String.format("%s | %d years | %s", name, getAge(), address);
-    }
+    // @Transient
+    // @JsonIgnore
+    // public String getDemographics() {
+    //     return String.format("%s | %d years | %s", name, getAge(), address);
+    // }
 
     // toString() - excludes sensitive data
     @Override
@@ -159,7 +159,7 @@ public class Patient {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", registrationDate=" + registrationDate +
+                // ", registrationDate=" + registrationDate +
                 '}';
     }
 }
