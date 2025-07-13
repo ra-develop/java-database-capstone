@@ -21,15 +21,18 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @NotBlank(message = "Name is required")
     @Size(min = 3, max = 100, message = "Name must be between 3-100 characters")
     @Pattern(regexp = "^[a-zA-Z ]+$", message = "Name can only contain letters and spaces")
     private String name;
 
+    @NotNull
     @NotBlank(message = "Specialty is required")
     @Size(min = 3, max = 50, message = "Specialty must be between 3-50 characters")
     private String specialty;
 
+    @NotNull
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     @Column(unique = true)

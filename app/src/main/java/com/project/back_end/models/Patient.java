@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
-import java.time.Period;
+// import java.time.Period;
 
 @Entity
 @Table(name = "patients")
@@ -16,11 +16,13 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @NotBlank(message = "Full name is required")
     @Size(min = 3, max = 100, message = "Name must be between 3-100 characters")
     @Pattern(regexp = "^[a-zA-Z\\s\\-']+$", message = "Name can only contain letters, spaces, hyphens, and apostrophes")
     private String name;
 
+    @NotNull
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     @Column(unique = true)
