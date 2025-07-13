@@ -10,7 +10,7 @@
 **Story Points:** 3
     
 
-1.  **Admin Logout**
+2.  **Admin Logout**
     As an admin, I want to log out to protect system access
 
 **Acceptance Criteria:** Session termination, redirect to login
@@ -20,7 +20,7 @@
 **Story Points:** 2
 
 
-1.  **Add Doctor**
+3.  **Add Doctor**
     As an admin, I want to add doctors to the system
 
 **Acceptance Criteria:** DB record created, success alert, form validation
