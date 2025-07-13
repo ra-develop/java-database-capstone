@@ -1,5 +1,12 @@
 package com.project.back_end.models;
 
+import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotNull;
+
 // @Entity annotation:
 //    - Marks the class as a JPA entity, which means it represents a table in the database.
 //    - It is required for persistence frameworks like Hibernate to map the class to a database table.
@@ -32,7 +39,6 @@ package com.project.back_end.models;
 // 5. Getters and Setters:
 //    - Standard getter and setter methods are provided for accessing and modifying the fields.
 
-
 @Entity
 public class Admin {
     @Id
@@ -45,5 +51,51 @@ public class Admin {
     @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    // No-arg constructor (required by JPA)
+    public Admin() {
+    }
+
+    // Parameterized constructor (optional)
+    public Admin(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Optional: toString() method for debugging/logging
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                // Password intentionally excluded from toString for security
+                '}';
+    }
 
 }
