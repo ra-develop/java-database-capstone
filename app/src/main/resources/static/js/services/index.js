@@ -1,3 +1,136 @@
+/**
+ * Role-Based Login Handling Service
+ * Manages admin and doctor login functionality
+ */
+
+import { openModal } from '../components/modals.js';
+import { API_BASE_URL } from '../config/config.js';
+
+// API Endpoints
+const ADMIN_API = `${API_BASE_URL}/admin`;
+const DOCTOR_API = `${API_BASE_URL}/doctor/login`;
+
+// Initialize on page load
+window.onload = function() {
+    // Admin login button
+    const adminBtn = document.getElementById('adminLogin');
+    if (adminBtn) {
+        adminBtn.addEventListener('click', () => {
+            openModal('adminLogin');
+        });
+    }
+
+    // Doctor login button
+    const doctorBtn = document.getElementById('doctorLogin');
+    if (doctorBtn) {
+        doctorBtn.addEventListener('click', () => {
+            openModal('doctorLogin');
+        });
+    }
+};
+
+/**
+ * Handles admin login form submission
+ * @global
+ */
+window.adminLoginHandler = async function() {
+    try {
+        // Get form values
+        const username = document.getElementById('adminUsername').value.trim();
+        const password = document.getElementById('adminPassword').value;
+
+        if (!username || !password) {
+            alert('Please enter both username and password');
+            return;
+        }
+
+        // Create request payload
+        const admin = { username, password };
+
+        // Send login request
+        const response = await fetch(ADMIN_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(admin)
+        });
+
+        if (!response.ok) {
+            throw new Error('Invalid credentials');
+        }
+
+        // Process successful login
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', 'admin');
+        
+        // Redirect or update UI
+        selectRole('admin');
+        
+    } catch (error) {
+        console.error('Admin login failed:', error);
+        alert(error.message || 'Login failed. Please try again.');
+    }
+};
+
+/**
+ * Handles doctor login form submission
+ * @global
+ */
+window.doctorLoginHandler = async function() {
+    try {
+        // Get form values
+        const email = document.getElementById('doctorEmail').value.trim();
+        const password = document.getElementById('doctorPassword').value;
+
+        if (!email || !password) {
+            alert('Please enter both email and password');
+            return;
+        }
+
+        // Create request payload
+        const doctor = { email, password };
+
+        // Send login request
+        const response = await fetch(DOCTOR_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(doctor)
+        });
+
+        if (!response.ok) {
+            throw new Error('Invalid credentials');
+        }
+
+        // Process successful login
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', 'doctor');
+        
+        // Redirect or update UI
+        selectRole('doctor');
+        
+    } catch (error) {
+        console.error('Doctor login failed:', error);
+        alert(error.message || 'Login failed. Please try again.');
+    }
+};
+
+/**
+ * Role selection handler (defined in render.js)
+ * @param {string} role - Selected role (admin|doctor)
+ */
+function selectRole(role) {
+    // Implementation from render.js
+    // Sets role in localStorage and updates UI
+    console.log(`Role selected: ${role}`);
+    // Redirect or update UI as needed
+    window.location.href = `/pages/${role}Dashboard.html`;
+}
+
 /*
   Import the openModal function to handle showing login popups/modals
   Import the base API URL from the config file
