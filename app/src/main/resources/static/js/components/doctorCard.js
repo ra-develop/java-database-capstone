@@ -39,7 +39,7 @@ export function createDoctorCard(doctor) {
 
     // Create information section
     const infoSection = createInfoSection(doctor);
-    
+
     // Create actions section based on role
     const actionsSection = createActionsSection(doctor, role);
 
@@ -61,8 +61,8 @@ function createInfoSection(doctor) {
         createElement('h3', 'doctor-name', doctor.name),
         createElement('p', 'doctor-specialty', `Specialty: ${doctor.specialty}`),
         createElement('p', 'doctor-email', `Email: ${doctor.email}`),
-        createElement('p', 'doctor-availability', 
-                     `Available: ${formatAvailability(doctor.availableTimes)}`)
+        createElement('p', 'doctor-availability',
+            `Available: ${formatAvailability(doctor.availableTimes)}`)
     ];
 
     infoDiv.append(...elements);
@@ -129,14 +129,14 @@ function createDeleteButton(doctor) {
     const button = document.createElement('button');
     button.className = 'btn btn-danger';
     button.textContent = 'Delete';
-    
+
     button.addEventListener('click', async () => {
         if (!confirm(`Permanently delete Dr. ${doctor.name}?`)) return;
-        
+
         try {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('Authentication required');
-            
+
             await deleteDoctor(doctor.id, token);
             button.closest('.doctor-card').remove();
         } catch (error) {
@@ -144,7 +144,7 @@ function createDeleteButton(doctor) {
             alert(`Delete failed: ${error.message}`);
         }
     });
-    
+
     return button;
 }
 
@@ -158,7 +158,7 @@ function createBookButton(doctor, isLoggedIn) {
     const button = document.createElement('button');
     button.className = 'btn btn-primary';
     button.textContent = 'Book Now';
-    
+
     button.addEventListener('click', async () => {
         if (!isLoggedIn) {
             alert('Please login to book an appointment');
@@ -168,7 +168,7 @@ function createBookButton(doctor, isLoggedIn) {
         try {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('Session expired');
-            
+
             const patientData = await getPatientData(token);
             showBookingOverlay(doctor, patientData);
         } catch (error) {
@@ -176,7 +176,7 @@ function createBookButton(doctor, isLoggedIn) {
             alert(`Booking failed: ${error.message}`);
         }
     });
-    
+
     return button;
 }
 
