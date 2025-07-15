@@ -114,7 +114,7 @@ public class AppointmentService {
         }
 
         // Verify patient exists and owns the appointment
-        String userEmail = tokenService.extractEmail(token);
+        String userEmail = tokenService.extractIdentifier(token);
         Optional<Patient> patient = Optional.ofNullable(patientRepository.findByEmail(userEmail));
         if (patient.isEmpty() || !appointment.get().getPatient().getId().equals(patient.get().getId())) {
             response.put("message", "You can only cancel your own appointments");
@@ -137,7 +137,7 @@ public class AppointmentService {
         Map<String, Object> response = new HashMap<>();
 
         // Verify doctor exists
-        String userEmail = tokenService.extractEmail(token);
+        String userEmail = tokenService.extractIdentifier(token);
         Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByEmail(userEmail));
         if (doctor.isEmpty()) {
             response.put("message", "Doctor not found");

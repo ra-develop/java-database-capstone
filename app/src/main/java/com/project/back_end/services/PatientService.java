@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,10 +46,12 @@ public class PatientService {
         Map<String, Object> response = new HashMap<>();
 
         // Verify patient owns the appointments
-        Long patientId = tokenService.extractPatientId(token);
-        if (!id.equals(patientId)) {
-            response.put("error", "Unauthorized access");
-            return ResponseEntity.status(401).body(response);
+
+        String userEmail = tokenService.extractIdentifier(token);
+        Optional<Patient> patient = Optional.ofNullable(patientRepository.findByEmail(userEmail));
+        if (patient.isEmpty() || !patient.get().getId().equals(id)) {
+            response.put("message", "Unauthorized access");
+            return ResponseEntity.badRequest().body(response);
         }
 
         try {
@@ -148,7 +150,7 @@ public class PatientService {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            String email = tokenService.extractEmail(token);
+            String email = tokenService.extractIdentifier(token);
             Patient patient = patientRepository.findByEmail(email);
 
             if (patient == null) {

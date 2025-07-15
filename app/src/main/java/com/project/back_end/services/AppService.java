@@ -56,7 +56,7 @@ public class AppService {
                 return ResponseEntity.status(401).body(response);
             }
 
-            String token = tokenService.generateToken(admin.getId(), "ADMIN");
+            String token = tokenService.generateToken(admin.getUsername());
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class AppService {
                 return ResponseEntity.status(401).body(response);
             }
 
-            String token = tokenService.generateToken(patient.getId(), "PATIENT");
+            String token = tokenService.generateToken(patient.getEmail());
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class AppService {
     public ResponseEntity<Map<String, Object>> filterPatient(String condition, String name, String token) {
         Map<String, Object> response = new HashMap<>();
 
-        String userEmail = tokenService.extractEmail(token);
+        String userEmail = tokenService.extractIdentifier(token);
         Optional<Patient> patient = Optional.ofNullable(patientRepository.findByEmail(userEmail));
         if (patient.isEmpty()) {
             response.put("message", "You can filter only registered patient");

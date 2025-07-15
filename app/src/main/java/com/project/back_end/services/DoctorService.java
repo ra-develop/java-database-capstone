@@ -105,7 +105,7 @@ public class DoctorService {
             return ResponseEntity.status(401).body(response);
         }
         
-        String token = tokenService.generateToken(doctor.getId(), "DOCTOR");
+        String token = tokenService.generateToken(doctor.getEmail());
         response.put("token", token);
         return ResponseEntity.ok(response);
     }
