@@ -1,11 +1,23 @@
 package com.project.back_end.repo;
 
 import com.project.back_end.models.Patient;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
+
+    /**
+     * Finds a patient by their exact name
+     * @param name The name to search for
+     * @return The Patient entity matching the name, or null if not found
+     */
+    @Query("SELECT p FROM Doctor p WHERE p.name LIKE CONCAT('%', :name, '%')")
+    List<Patient> findByNameLike(String name);
 
     /**
      * Finds a patient by their exact email address
