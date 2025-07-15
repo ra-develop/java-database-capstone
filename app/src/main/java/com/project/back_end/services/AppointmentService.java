@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.context.annotation.Lazy;
+
 
 @Service
 public class AppointmentService {
@@ -24,7 +26,7 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
-    private final TokenService tokenService;
+    private final @Lazy TokenService tokenService;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
             PatientRepository patientRepository,

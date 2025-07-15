@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.context.annotation.Lazy;
+
 
 @Service
 public class PatientService {
 
     private final PatientRepository patientRepository;
     private final AppointmentRepository appointmentRepository;
-    private final TokenService tokenService;
+    private final @Lazy TokenService tokenService;
 
     public PatientService(PatientRepository patientRepository,
             AppointmentRepository appointmentRepository,

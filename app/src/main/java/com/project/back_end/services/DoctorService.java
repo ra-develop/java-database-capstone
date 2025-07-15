@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.context.annotation.Lazy;
+
 
 @Service
 public class DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final AppointmentRepository appointmentRepository;
-    private final TokenService tokenService;
+    private final @Lazy TokenService tokenService;
 
     public DoctorService(DoctorRepository doctorRepository,
                         AppointmentRepository appointmentRepository,

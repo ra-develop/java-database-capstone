@@ -6,6 +6,7 @@ import com.project.back_end.repo.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +16,15 @@ import java.util.Optional;
 @Service
 public class HealthcareService {
 
-    private final TokenService tokenService;
+    private final @Lazy TokenService tokenService;
     private final AdminRepository adminRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
     private final DoctorService doctorService;
     private final PatientService patientService;
 
-    public HealthcareService(TokenService tokenService,
+    public HealthcareService(
+            TokenService tokenService,
             AdminRepository adminRepository,
             DoctorRepository doctorRepository,
             PatientRepository patientRepository,
@@ -38,7 +40,23 @@ public class HealthcareService {
 
     public ResponseEntity<Map<String, String>> validateToken(String token, String user) {
         Map<String, String> response = new HashMap<>();
-        if (!tokenService.validateToken(token, user)) {
+
+        Boolean validatedUser = false;
+
+        try {
+            String identifier = tokenService.extractIdentifier(token);
+
+            validatedUser = switch (user.toLowerCase()) {
+                case "admin" -> adminRepository.findByUsername(identifier) != null;
+                case "doctor" -> doctorRepository.findByEmail(identifier) != null;
+                case "patient" -> patientRepository.findByEmail(identifier) != null;
+                default -> false;
+            };
+        } catch (Exception e) {
+            validatedUser = false;
+        }
+
+        if (!validatedUser) {
             response.put("error", "Invalid or expired token");
             return ResponseEntity.status(401).body(response);
         }
