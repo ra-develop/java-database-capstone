@@ -133,7 +133,7 @@ public class AppointmentService {
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Object> getAppointment(String pname, LocalDate date, String token) {
+    public Map<String, Object> getAppointments(String pname, LocalDate date, String token) {
         Map<String, Object> response = new HashMap<>();
 
         // Verify doctor exists

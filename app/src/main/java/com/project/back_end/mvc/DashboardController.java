@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.project.back_end.services.AppService;
+import com.project.back_end.services.HealthcareService;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 public class DashboardController {
 
     @Autowired
-    private AppService service;
+    private HealthcareService service;
 
     @GetMapping("/adminDashboard/{token}")
     public String adminDashboard(@PathVariable String token) {

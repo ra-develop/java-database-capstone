@@ -1,7 +1,7 @@
 package com.project.back_end.controllers;
 
 import com.project.back_end.models.Admin;
-import com.project.back_end.services.AppService;
+import com.project.back_end.services.HealthcareService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,15 +11,15 @@ import java.util.Map;
 @RequestMapping("${api.path}" + "admin")
 public class AdminController {
 
-    private final AppService appService;
+    private final HealthcareService healthcareService;
 
-    public AdminController(AppService appService) {
-        this.appService = appService;
+    public AdminController(HealthcareService healthcareService) {
+        this.healthcareService = healthcareService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin) {
-        return appService.validateAdmin(admin);
+        return healthcareService.validateAdmin(admin);
     }
 }
 

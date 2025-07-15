@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class AppService {
+public class HealthcareService {
 
     private final TokenService tokenService;
     private final AdminRepository adminRepository;
@@ -22,7 +22,7 @@ public class AppService {
     private final DoctorService doctorService;
     private final PatientService patientService;
 
-    public AppService(TokenService tokenService,
+    public HealthcareService(TokenService tokenService,
             AdminRepository adminRepository,
             DoctorRepository doctorRepository,
             PatientRepository patientRepository,
