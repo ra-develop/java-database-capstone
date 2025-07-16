@@ -15,7 +15,7 @@ function renderHeader() {
         headerDiv.innerHTML = `
             <header class="header">
                 <div class="logo-section">
-                    <img src="./assets/images/logo/logo.png" alt="Hospital CRM Logo" class="logo-img">
+                    <img src="../assets/images/logo/logo.png" alt="Hospital CRM Logo" class="logo-img">
                     <span class="logo-title">Hospital CMS</span>
                 </div>
             </header>`;
@@ -38,7 +38,7 @@ function renderHeader() {
     let headerContent = `
         <header class="header">
             <div class="logo-section">
-                <img src="./assets/images/logo/logo.png" alt="Hospital CRM Logo" class="logo-img">
+                <img src="../assets/images/logo/logo.png" alt="Hospital CRM Logo" class="logo-img">
                 <span class="logo-title">Hospital CMS</span>
             </div>
             <nav class="nav-links">`;

@@ -59,16 +59,19 @@ export function openModal(type) {
   } else if (type === 'adminLogin') {
     modalContent = `
         <h2>Admin Login</h2>
-        <input type="text" id="username" name="username" placeholder="Username" class="input-field">
-        <input type="password" id="password" name="password" placeholder="Password" class="input-field">
+        <input type="text" id="adminUsername" name="adminUsername" placeholder="Username" class="input-field">
+        <input type="password" id="adminPassword" name="password" placeholder="Password" class="input-field">
         <button class="dashboard-btn" id="adminLoginBtn" >Login</button>
       `;
   } else if (type === 'doctorLogin') {
     modalContent = `
         <h2>Doctor Login</h2>
-        <input type="text" id="email" placeholder="Email" class="input-field">
-        <input type="password" id="password" placeholder="Password" class="input-field">
-        <button class="dashboard-btn" id="doctorLoginBtn" >Login</button>
+        <form onsubmit="doctorLoginHandler(event)">
+        <input type="email" id="doctorEmail" class="input-field" placeholder="Email" required>
+        <input type="password" id="doctorPassword" class="input-field" placeholder="Password" required>
+        <button type="submit" class="dashboard-btn">Login</button>
+        </form>
+        <div class="error-message" id="doctorError"></div>
       `;
   }
 

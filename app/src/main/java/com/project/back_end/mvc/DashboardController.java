@@ -2,13 +2,10 @@ package com.project.back_end.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.project.back_end.services.HealthcareService;
-
-import java.util.Map;
 
 @Controller
 public class DashboardController {
@@ -16,26 +13,20 @@ public class DashboardController {
     @Autowired
     private HealthcareService service;
 
-    @GetMapping("/adminDashboard/{token}")
-    public String adminDashboard(@PathVariable String token) {
-        ResponseEntity<Map<String, String>> validationResult = service.validateToken(token, "admin");
-        
-        if (validationResult.getStatusCode().is2xxSuccessful()) {
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard(@RequestHeader("Authorization") String token) {
+        if (service.validateToken(token, "admin").getStatusCode().is2xxSuccessful()) {
             return "admin/adminDashboard";
-        } else {
-            return "redirect:http://localhost:8080";
         }
+        return "redirect:/?error=unauthorized";
     }
 
-    @GetMapping("/doctorDashboard/{token}")
-    public String doctorDashboard(@PathVariable String token) {
-        ResponseEntity<Map<String, String>> validationResult = service.validateToken(token, "doctor");
-        
-        if (validationResult.getStatusCode().is2xxSuccessful()) {
+    @GetMapping("/doctor/dashboard")
+    public String doctorDashboard(@RequestHeader("Authorization") String token) {
+        if (service.validateToken(token, "doctor").getStatusCode().is2xxSuccessful()) {
             return "doctor/doctorDashboard";
-        } else {
-            return "redirect:http://localhost:8080";
         }
+        return "redirect:/?error=unauthorized";
     }
 }
 

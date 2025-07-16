@@ -129,7 +129,8 @@ h2 {
     flex-direction: column;
     align-items: center; /* Center horizontally */
     text-align: center;
-    background-image: url("index.png"); /* Placeholder for background image */
+     /* Placeholder for background image */
+    /* background-image: url("index.png"); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
