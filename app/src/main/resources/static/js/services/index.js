@@ -61,7 +61,8 @@ function handleLoginSuccess(response, role) {
     response.json().then(data => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', role);
-        window.location.href = `/${role}/dashboard`;
+
+        window.location.href = `/${role}/dashboard/${data.token}`;
     });
 }
 

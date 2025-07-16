@@ -12,7 +12,7 @@ function renderFooter() {
             <div class="footer-container">
                 <!-- Branding Section -->
                 <div class="footer-logo">
-                    <img src="../assets/images/logo/logo.png" alt="Hospital CMS Logo">
+                    <img src="../../assets/images/logo/logo.png" alt="Hospital CMS Logo">
                     <p>© ${new Date().getFullYear()} Hospital CMS. All Rights Reserved.</p>
                 </div>
 
