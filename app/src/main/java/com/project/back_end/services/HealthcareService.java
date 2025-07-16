@@ -46,11 +46,18 @@ public class HealthcareService {
         try {
             String identifier = tokenService.extractIdentifier(token);
 
-            validatedUser = switch (user.toLowerCase()) {
-                case "admin" -> adminRepository.findByUsername(identifier) != null;
-                case "doctor" -> doctorRepository.findByEmail(identifier) != null;
-                case "patient" -> patientRepository.findByEmail(identifier) != null;
-                default -> false;
+            switch (user.toLowerCase()) {
+                case "admin":
+                    validatedUser = adminRepository.findByUsername(identifier) != null;
+                    break;
+                case "doctor":
+                    validatedUser = doctorRepository.findByEmail(identifier) != null;
+                    break;
+                case "patient":
+                    validatedUser = patientRepository.findByEmail(identifier) != null;
+                    break;
+                default:
+                    validatedUser = false;
             };
         } catch (Exception e) {
             validatedUser = false;
