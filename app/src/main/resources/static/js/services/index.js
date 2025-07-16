@@ -119,17 +119,18 @@ window.doctorLoginHandler = async function() {
     }
 };
 
-/**
- * Role selection handler (defined in render.js)
- * @param {string} role - Selected role (admin|doctor)
- */
-function selectRole(role) {
-    // Implementation from render.js
-    // Sets role in localStorage and updates UI
-    console.log(`Role selected: ${role}`);
-    // Redirect or update UI as needed
-    window.location.href = `/pages/${role}Dashboard.html`;
-}
+// /**
+//  * Role selection handler (defined in render.js)
+//  * @param {string} role - Selected role (admin|doctor)
+//  */
+// function selectRole(role) {
+//     // Implementation from render.js
+//     // Sets role in localStorage and updates UI
+//     console.log(`Role selected: ${role}`);
+//     // Redirect or update UI as needed
+//     window.location.href = `${API_BASE_URL}`;
+//     // window.location.href = `${API_BASE_URL}/${role}Dashboard.html`;
+// }
 
 /*
   Import the openModal function to handle showing login popups/modals

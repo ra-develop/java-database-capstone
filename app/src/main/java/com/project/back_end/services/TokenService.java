@@ -16,9 +16,9 @@ import java.util.Date;
 @Component
 public class TokenService {
 
-    // private final AdminRepository adminRepository;
-    // private final DoctorRepository doctorRepository;
-    // private final PatientRepository patientRepository;
+    private final AdminRepository adminRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -26,17 +26,17 @@ public class TokenService {
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
-    // public TokenService(AdminRepository adminRepository,
-    //         DoctorRepository doctorRepository,
-    //         PatientRepository patientRepository) {
-    //     this.adminRepository = adminRepository;
-    //     this.doctorRepository = doctorRepository;
-    //     this.patientRepository = patientRepository;
-    // }
-
-    public TokenService() {
-
+    public TokenService(AdminRepository adminRepository,
+            DoctorRepository doctorRepository,
+            PatientRepository patientRepository) {
+        this.adminRepository = adminRepository;
+        this.doctorRepository = doctorRepository;
+        this.patientRepository = patientRepository;
     }
+
+    // public TokenService() {
+
+    // }
 
     public String generateToken(String identifier) {
         Date now = new Date();
@@ -59,20 +59,20 @@ public class TokenService {
                 .getSubject();
     }
 
-    // public boolean validateToken(String token, String user) {
-    //     try {
-    //         String identifier = extractIdentifier(token);
+    public boolean validateToken(String token, String user) {
+        try {
+            String identifier = extractIdentifier(token);
 
-    //         return switch (user.toLowerCase()) {
-    //             case "admin" -> adminRepository.findByUsername(identifier) != null;
-    //             case "doctor" -> doctorRepository.findByEmail(identifier) != null;
-    //             case "patient" -> patientRepository.findByEmail(identifier) != null;
-    //             default -> false;
-    //         };
-    //     } catch (Exception e) {
-    //         return false;
-    //     }
-    // }
+            return switch (user.toLowerCase()) {
+                case "admin" -> adminRepository.findByUsername(identifier) != null;
+                case "doctor" -> doctorRepository.findByEmail(identifier) != null;
+                case "patient" -> patientRepository.findByEmail(identifier) != null;
+                default -> false;
+            };
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());

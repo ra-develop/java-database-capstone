@@ -40,27 +40,29 @@ public class HealthcareService {
     public ResponseEntity<Map<String, String>> validateToken(String token, String user) {
         Map<String, String> response = new HashMap<>();
 
-        Boolean validatedUser = false;
+        // Boolean validatedUser = false;
 
-        try {
-            String identifier = tokenService.extractIdentifier(token);
+        // try {
+        //     String identifier = tokenService.extractIdentifier(token);
 
-            switch (user.toLowerCase()) {
-                case "admin":
-                    validatedUser = adminRepository.findByUsername(identifier) != null;
-                    break;
-                case "doctor":
-                    validatedUser = doctorRepository.findByEmail(identifier) != null;
-                    break;
-                case "patient":
-                    validatedUser = patientRepository.findByEmail(identifier) != null;
-                    break;
-                default:
-                    validatedUser = false;
-            };
-        } catch (Exception e) {
-            validatedUser = false;
-        }
+        //     switch (user.toLowerCase()) {
+        //         case "admin":
+        //             validatedUser = adminRepository.findByUsername(identifier) != null;
+        //             break;
+        //         case "doctor":
+        //             validatedUser = doctorRepository.findByEmail(identifier) != null;
+        //             break;
+        //         case "patient":
+        //             validatedUser = patientRepository.findByEmail(identifier) != null;
+        //             break;
+        //         default:
+        //             validatedUser = false;
+        //     };
+        // } catch (Exception e) {
+        //     validatedUser = false;
+        // }
+
+        Boolean validatedUser = tokenService.validateToken(token, user);
 
         if (!validatedUser) {
             response.put("error", "Invalid or expired token");
