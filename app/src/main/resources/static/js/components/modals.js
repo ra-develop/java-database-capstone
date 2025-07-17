@@ -21,7 +21,6 @@ export function openModal(type) {
                         <option value="oncologist">Oncologist</option>
                         <option value="gastroenterologist">Gastroenterologist</option>
                         <option value="general">General Physician</option>
-
         </select>
         <input type="email" id="doctorEmail" placeholder="Email" class="input-field">
         <input type="password" id="doctorPassword" placeholder="Password" class="input-field">
@@ -57,11 +56,20 @@ export function openModal(type) {
     `;
 
   } else if (type === 'adminLogin') {
+    // modalContent = `
+    //     <h2>Admin Login</h2>
+    //     <input type="text" id="adminUsername" name="adminUsername" placeholder="Username" class="input-field">
+    //     <input type="password" id="adminPassword" name="password" placeholder="Password" class="input-field">
+    //     <button class="dashboard-btn" id="adminLoginBtn" >Login</button>
+    //   `;
     modalContent = `
         <h2>Admin Login</h2>
-        <input type="text" id="adminUsername" name="adminUsername" placeholder="Username" class="input-field">
-        <input type="password" id="adminPassword" name="password" placeholder="Password" class="input-field">
-        <button class="dashboard-btn" id="adminLoginBtn" >Login</button>
+        <form onsubmit="adminLoginHandler(event)">
+        <input type="text" id="adminUsername" name="adminUsername" placeholder="Username" class="input-field" required>
+        <input type="password" id="adminPassword" name="password" placeholder="Password" class="input-field" required>
+        <button type="submit" class="dashboard-btn">Login</button>
+        </form>
+        <div class="error-message" id="adminError"></div>
       `;
   } else if (type === 'doctorLogin') {
     modalContent = `
