@@ -59,10 +59,17 @@ async function authenticate(credentials, role) {
 
 function handleLoginSuccess(response, role) {
     response.json().then(data => {
+        if (!data.token) throw new Error('No token received');
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', role);
 
-        window.location.href = `/${role}/dashboard/${data.token}`;
+        // Redirect
+        window.location.href = `/${role}/dashboard?token=${encodeURIComponent(data.token)}`;
+
+        // Immediately clear from URL after loading
+        setTimeout(() => {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }, 100);
     });
 }
 

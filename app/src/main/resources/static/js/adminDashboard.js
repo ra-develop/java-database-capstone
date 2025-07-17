@@ -6,9 +6,9 @@
  * - Adding new doctors
  */
 
-import { openModal } from '../components/modals.js';
-import { getDoctors, filterDoctors, saveDoctor } from './services/doctorServices.js';
-import { createDoctorCard } from './components/doctorCard.js';
+import { openModal } from '../js/components/modals.js';
+import { getDoctors, filterDoctors, saveDoctor } from '../js/services/doctorServices.js';
+import { createDoctorCard } from '../js/components/doctorCard.js';
 
 // DOM Elements
 const contentDiv = document.getElementById('content');

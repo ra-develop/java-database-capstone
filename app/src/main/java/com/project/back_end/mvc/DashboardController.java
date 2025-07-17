@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.back_end.services.HealthcareService;
 
@@ -14,16 +15,24 @@ public class DashboardController {
     @Autowired
     private HealthcareService service;
 
-    @GetMapping("/admin/dashboard/{token}")
-    public String adminDashboard( /* @RequestHeader("Authorization") */ @PathVariable  String token) {
+    // @GetMapping("/admin/dashboard/{token}")
+    // public String adminDashboard(@PathVariable  String token) {
+    // @GetMapping("/admin/dashboard")
+    // public String adminDashboard(@RequestHeader("Authorization") String token) {
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard(@RequestParam  String token) {
         if (service.validateToken(token, "admin").getStatusCode().is2xxSuccessful()) {
             return "admin/adminDashboard";
         }
         return "redirect:/?error=unauthorized";
     }
 
+    // @GetMapping("/doctor/dashboard/{token}")
+    // public String doctorDashboard(@PathVariable String token) {
+    // @GetMapping("/doctor/dashboard")
+    // public String doctorDashboard(@RequestHeader("Authorization") String token) {
     @GetMapping("/doctor/dashboard")
-    public String doctorDashboard(/* @RequestHeader("Authorization") */ @PathVariable String token) {
+    public String doctorDashboard(@RequestParam String token) {
         if (service.validateToken(token, "doctor").getStatusCode().is2xxSuccessful()) {
             return "doctor/doctorDashboard";
         }
