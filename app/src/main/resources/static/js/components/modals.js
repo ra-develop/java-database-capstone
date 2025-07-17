@@ -102,11 +102,11 @@ export function openModal(type) {
     document.getElementById('saveDoctorBtn').addEventListener('click', adminAddDoctor);
   }
 
-  if (type === 'adminLogin') {
-    document.getElementById('adminLoginBtn').addEventListener('click', adminLoginHandler);
-  }
+  // if (type === 'adminLogin') {
+  //   document.getElementById('adminLoginBtn').addEventListener('click', adminLoginHandler);
+  // }
 
-  if (type === 'doctorLogin') {
-    document.getElementById('doctorLoginBtn').addEventListener('click', doctorLoginHandler);
-  }
+  // if (type === 'doctorLogin') {
+  //   document.getElementById('doctorLoginBtn').addEventListener('click', doctorLoginHandler);
+  // }
 }

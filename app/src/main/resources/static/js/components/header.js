@@ -3,6 +3,8 @@
  * Manages navigation and session state for admin, doctor, and patient roles
  */
 
+import { openModal } from './modals.js'; 
+
 // Main header rendering function
 function renderHeader() {
     const headerDiv = document.getElementById("header");
