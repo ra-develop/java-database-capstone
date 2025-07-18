@@ -92,6 +92,26 @@ public class HealthcareService {
     }
 
     @Transactional(readOnly = true)
+    public ResponseEntity<Map<String, String>> validateDoctorLogin(Login login) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            Doctor doctor = doctorRepository.findByEmail(login.getIdentifier());
+            if (doctor == null || !doctor.getPassword().equals(login.getPassword())) {
+                response.put("error", "Invalid credentials");
+                return ResponseEntity.status(401).body(response);
+            }
+
+            String token = tokenService.generateToken(doctor.getEmail());
+            response.put("token", token);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("error", "Login failed");
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    @Transactional(readOnly = true)
     public Map<String, Object> filterDoctor(String name, String specialty, String time) {
         Map<String, Object> response = new HashMap<>();
 

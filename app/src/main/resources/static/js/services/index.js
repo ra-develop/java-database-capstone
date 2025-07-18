@@ -29,7 +29,7 @@ window.doctorLoginHandler = async function(event) {
     event.preventDefault();
     try {
         const response = await authenticate({
-            email: document.getElementById('doctorEmail').value,
+            identifier: document.getElementById('doctorEmail').value,
             password: document.getElementById('doctorPassword').value
         }, 'doctor');
         

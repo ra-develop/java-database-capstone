@@ -73,7 +73,7 @@ public class DoctorController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> doctorLogin(@RequestBody Login login) {
-        return healthcareService.validatePatientLogin(login);
+        return healthcareService.validateDoctorLogin(login);
     }
 
     @PutMapping("/{token}")

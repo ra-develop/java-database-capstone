@@ -52,20 +52,26 @@ function renderHeader() {
             <button id="logoutBtn" class="nav-btn">Logout</button>`;
     } 
     else if (role === "doctor") {
+        // headerContent += `
+        //     <button id="homeBtn" class="nav-btn">Home</button>
+        //     <button id="logoutBtn" class="nav-btn">Logout</button>`;
         headerContent += `
-            <button id="homeBtn" class="nav-btn">Home</button>
             <button id="logoutBtn" class="nav-btn">Logout</button>`;
     } 
     else if (role === "patient") {
         headerContent += `
+            <button id="homeBtn" class="nav-btn">Home</button>
             <button id="loginBtn" class="nav-btn">Login</button>
             <button id="signupBtn" class="nav-btn">Sign Up</button>`;
     } 
     else if (role === "loggedPatient") {
         headerContent += `
-            <button id="homeBtn" class="nav-btn">Home</button>
             <button id="appointmentsBtn" class="nav-btn">Appointments</button>
             <button id="logoutBtn" class="nav-btn">Logout</button>`;
+        // headerContent += `
+        //     <button id="homeBtn" class="nav-btn">Home</button>
+        //     <button id="appointmentsBtn" class="nav-btn">Appointments</button>
+        //     <button id="logoutBtn" class="nav-btn">Logout</button>`;
     }
 
     // Close header structure
@@ -83,11 +89,11 @@ function attachHeaderButtonListeners() {
         openModal('addDoctor');
     });
 
-    // Doctor/Patient home buttons
+    // // Doctor/Patient home buttons
     document.getElementById("homeBtn")?.addEventListener("click", () => {
         const role = localStorage.getItem("userRole");
-        window.location.href = role === "doctor" 
-            ? "/pages/doctorDashboard.html" 
+        window.location.href = role === "patient" 
+            ? "/"
             : "/pages/patientDashboard.html";
     });
 
