@@ -58,10 +58,16 @@ public class DoctorController {
         if (validationResponse.getStatusCode().isError()) {
             return validationResponse;
         }
-
-        int result = doctorService.saveDoctor(doctor);
+        
+        int result = 0;
+        try {
+            result = doctorService.saveDoctor(doctor);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", "Failed to save doctor: " + e.getMessage()));
+        }
         if (result == 1) {
-            return ResponseEntity.ok(Map.of("message", "Doctor added to db"));
+                return ResponseEntity.ok(Map.of("message", "Doctor added to db"));
         } else if (result == -1) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", "Doctor already exists"));
@@ -87,7 +93,13 @@ public class DoctorController {
             return validationResponse;
         }
 
-        int result = doctorService.updateDoctor(doctor);
+        int result = 0;
+        try {
+            result = doctorService.updateDoctor(doctor);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", "Failed to update doctor: " + e.getMessage()));
+        }
         if (result == 1) {
             return ResponseEntity.ok(Map.of("message", "Doctor updated"));
         } else if (result == -1) {
@@ -110,7 +122,13 @@ public class DoctorController {
             return validationResponse;
         }
 
-        int result = doctorService.deleteDoctor(id);
+        int result = 0;
+        try {
+            result = doctorService.deleteDoctor(id);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", "Failed to delete doctor: " + e.getMessage()));
+        }
         if (result == 1) {
             return ResponseEntity.ok(Map.of("message", "Doctor deleted successfully"));
         } else if (result == -1) {

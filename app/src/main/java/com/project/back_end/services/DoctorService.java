@@ -54,27 +54,31 @@ public class DoctorService {
 
     @Transactional
     public int saveDoctor(Doctor doctor) {
+
+        // if (doctorRepository.findByEmail(doctor.getEmail()) != null) {
+        //     return -1; // Doctor with this email already exists
+        // }
         try {
-            if (doctorRepository.findByEmail(doctor.getEmail()) != null) {
-                return -1; // Doctor with this email already exists
-            }
             doctorRepository.save(doctor);
             return 1;
         } catch (Exception e) {
-            return 0;
+            throw new RuntimeException("Failed to save doctor: " + e.getMessage());
+            // return 0;
         }
     }
 
     @Transactional
     public int updateDoctor(Doctor doctor) {
+        // if (!doctorRepository.existsById(doctor.getId())) {
+        //     return -1; // Doctor not found
+        // }
+
         try {
-            if (!doctorRepository.existsById(doctor.getId())) {
-                return -1; // Doctor not found
-            }
             doctorRepository.save(doctor);
             return 1;
         } catch (Exception e) {
-            return 0;
+            throw new RuntimeException("Failed to save doctor: " + e.getMessage());
+            // return 0;
         }
     }
 
@@ -85,15 +89,17 @@ public class DoctorService {
 
     @Transactional
     public int deleteDoctor(long id) {
+        // if (!doctorRepository.existsById(id)) {
+        //     return -1; // Doctor not found
+        // }
+
         try {
-            if (!doctorRepository.existsById(id)) {
-                return -1; // Doctor not found
-            }
             appointmentRepository.deleteAllByDoctorId(id);
             doctorRepository.deleteById(id);
             return 1;
         } catch (Exception e) {
-            return 0;
+            throw new RuntimeException("Failed to save doctor: " + e.getMessage());
+            // return 0;
         }
     }
 

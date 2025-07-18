@@ -105,7 +105,7 @@ window.adminAddDoctor = async function() {
         const specialty = document.getElementById('doctorSpecialty').value;
         
         // Get availability times (checkboxes)
-        const timeCheckboxes = document.querySelectorAll('.time-checkbox:checked');
+        const timeCheckboxes = document.querySelectorAll('input[name="availability"]:checked');
         const availableTimes = Array.from(timeCheckboxes).map(cb => cb.value);
 
         // Validate inputs

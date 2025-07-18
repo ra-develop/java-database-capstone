@@ -33,11 +33,11 @@ export async function getDoctors() {
  */
 export async function deleteDoctor(id, token) {
     try {
-        const response = await fetch(`${DOCTOR_API}/${id}`, {
+        const response = await fetch(`${DOCTOR_API}/${id}/${token}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            // headers: {
+            //     'Authorization': `Bearer ${token}`
+            // }
         });
 
         const result = await response.json();
@@ -67,11 +67,11 @@ export async function deleteDoctor(id, token) {
  */
 export async function saveDoctor(doctor, token) {
     try {
-        const response = await fetch(DOCTOR_API, {
+        const response = await fetch(`${DOCTOR_API}/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                // 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(doctor)
         });
@@ -106,12 +106,13 @@ export async function saveDoctor(doctor, token) {
 export async function filterDoctors(name = '', time = '', specialty = '') {
     try {
         // Construct query parameters
-        const params = new URLSearchParams();
-        if (name) params.append('name', name);
-        if (time) params.append('time', time);
-        if (specialty) params.append('specialty', specialty);
-
-        const url = `${DOCTOR_API}/filter?${params.toString()}`;
+        // const params = new URLSearchParams();
+        // if (name) params.append('name', name);
+        // if (time) params.append('time', time);
+        // if (specialty) params.append('specialty', specialty);
+        // const url = `${DOCTOR_API}/filter?${params.toString()}`;
+        
+        const url = `${DOCTOR_API}/filter/${name}/${time}/${specialty}`;
         const response = await fetch(url);
 
         if (!response.ok) {
