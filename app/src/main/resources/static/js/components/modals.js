@@ -35,6 +35,7 @@ export function openModal(type) {
           </div>
         </div>
         <button class="dashboard-btn" id="saveDoctorBtn">Save</button>
+        <div class="error-message" id="addDoctorError"></div>
       `;
   } else if (type === 'patientLogin') {
     modalContent = `
@@ -109,4 +110,18 @@ export function openModal(type) {
   // if (type === 'doctorLogin') {
   //   document.getElementById('doctorLoginBtn').addEventListener('click', doctorLoginHandler);
   // }
+}
+
+export function closeModal(type) {
+  const modal = document.getElementById('modal');
+  
+  // Hide the modal
+  modal.style.display = 'none';
+  
+  // Optional: Clear the modal content if needed
+  if (type === 'addDoctor') {
+    document.getElementById('modal-body').innerHTML = '';
+  }
+  
+  // You can add specific cleanup for other modal types here
 }

@@ -5,6 +5,11 @@ import com.project.back_end.models.Doctor;
 // import com.project.back_end.models.Login;
 import com.project.back_end.repo.AppointmentRepository;
 import com.project.back_end.repo.DoctorRepository;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.springframework.context.annotation.Lazy;
 
 
@@ -54,13 +60,22 @@ public class DoctorService {
 
     @Transactional
     public int saveDoctor(Doctor doctor) {
-
-        // if (doctorRepository.findByEmail(doctor.getEmail()) != null) {
-        //     return -1; // Doctor with this email already exists
-        // }
         try {
+            if (doctorRepository.findByEmail(doctor.getEmail()) != null) {
+                throw new ValidationException("Doctor with this email already exists");
+            }
             doctorRepository.save(doctor);
             return 1;
+        } catch (ConstraintViolationException  e) {  // Catch ConstraintViolationException directly
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            
+            List<String> errorMessages = violations.stream()
+                .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                .collect(Collectors.toList());
+                
+            throw new RuntimeException("Validation failed: " + String.join(", ", errorMessages));
+        } catch (ValidationException e) {
+            throw new RuntimeException("Validation failed: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Failed to save doctor: " + e.getMessage());
             // return 0;
@@ -69,16 +84,24 @@ public class DoctorService {
 
     @Transactional
     public int updateDoctor(Doctor doctor) {
-        // if (!doctorRepository.existsById(doctor.getId())) {
-        //     return -1; // Doctor not found
-        // }
-
         try {
+            if (!doctorRepository.existsById(doctor.getId())) {
+                throw new ValidationException("Doctor not found");
+            }
             doctorRepository.save(doctor);
             return 1;
+        } catch (ConstraintViolationException  e) {  // Catch ConstraintViolationException directly
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            
+            List<String> errorMessages = violations.stream()
+                .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                .collect(Collectors.toList());
+                
+            throw new RuntimeException("Validation failed: " + String.join(", ", errorMessages));
+        } catch (ValidationException e) {
+            throw new RuntimeException("Validation failed: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Failed to save doctor: " + e.getMessage());
-            // return 0;
         }
     }
 
@@ -89,11 +112,10 @@ public class DoctorService {
 
     @Transactional
     public int deleteDoctor(long id) {
-        // if (!doctorRepository.existsById(id)) {
-        //     return -1; // Doctor not found
-        // }
-
         try {
+            if (!doctorRepository.existsById(id)) {
+                throw new ValidationException("Doctor not found");
+            }
             appointmentRepository.deleteAllByDoctorId(id);
             doctorRepository.deleteById(id);
             return 1;

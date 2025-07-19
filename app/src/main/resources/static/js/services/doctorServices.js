@@ -43,7 +43,7 @@ export async function deleteDoctor(id, token) {
         const result = await response.json();
         
         if (!response.ok) {
-            throw new Error(result.message || 'Failed to delete doctor');
+            throw new Error(result.error || 'Failed to delete doctor');
         }
 
         return {
@@ -79,7 +79,7 @@ export async function saveDoctor(doctor, token) {
         const result = await response.json();
         
         if (!response.ok) {
-            throw new Error(result.message || 'Failed to save doctor');
+            throw new Error(result.error || 'Failed to save doctor');
         }
 
         return {
@@ -91,7 +91,7 @@ export async function saveDoctor(doctor, token) {
         console.error("Save doctor failed:", error);
         return {
             success: false,
-            message: error.message || 'Failed to save doctor'
+            message: error.message // || 'Failed to save doctor'
         };
     }
 }
@@ -111,7 +111,7 @@ export async function filterDoctors(name = '', time = '', specialty = '') {
         // if (time) params.append('time', time);
         // if (specialty) params.append('specialty', specialty);
         // const url = `${DOCTOR_API}/filter?${params.toString()}`;
-        
+
         const url = `${DOCTOR_API}/filter/${name}/${time}/${specialty}`;
         const response = await fetch(url);
 

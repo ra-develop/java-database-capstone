@@ -58,7 +58,7 @@ public class DoctorController {
         if (validationResponse.getStatusCode().isError()) {
             return validationResponse;
         }
-        
+
         int result = 0;
         try {
             result = doctorService.saveDoctor(doctor);
@@ -67,10 +67,7 @@ public class DoctorController {
                     .body(Map.of("error", "Failed to save doctor: " + e.getMessage()));
         }
         if (result == 1) {
-                return ResponseEntity.ok(Map.of("message", "Doctor added to db"));
-        } else if (result == -1) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Doctor already exists"));
+            return ResponseEntity.ok(Map.of("message", "Doctor added to db"));
         } else {
             return ResponseEntity.internalServerError()
                     .body(Map.of("error", "Some internal error occurred"));
@@ -102,9 +99,6 @@ public class DoctorController {
         }
         if (result == 1) {
             return ResponseEntity.ok(Map.of("message", "Doctor updated"));
-        } else if (result == -1) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Doctor not found"));
         } else {
             return ResponseEntity.internalServerError()
                     .body(Map.of("error", "Some internal error occurred"));
@@ -131,9 +125,6 @@ public class DoctorController {
         }
         if (result == 1) {
             return ResponseEntity.ok(Map.of("message", "Doctor deleted successfully"));
-        } else if (result == -1) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Doctor not found with id"));
         } else {
             return ResponseEntity.internalServerError()
                     .body(Map.of("error", "Some internal error occurred"));

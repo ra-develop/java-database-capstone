@@ -6,9 +6,10 @@
  * - Adding new doctors
  */
 
-import { openModal } from '../js/components/modals.js';
+import { openModal, closeModal } from '../js/components/modals.js';
 import { getDoctors, filterDoctors, saveDoctor } from '../js/services/doctorServices.js';
 import { createDoctorCard } from '../js/components/doctorCard.js';
+import { showError } from '../js/services/index.js';
 
 // DOM Elements
 const contentDiv = document.getElementById('content');
@@ -141,7 +142,9 @@ window.adminAddDoctor = async function() {
         }
     } catch (error) {
         console.error('Add doctor error:', error);
-        alert(error.message || 'Failed to add doctor. Please try again.');
+        const errMessage = error.message;
+        showError('addDoctorError', error.message || 'Failed to add doctor. Please try again.');
+        // alert(error.message || 'Failed to add doctor. Please try again.');
     }
 };
 

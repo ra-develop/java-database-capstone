@@ -73,12 +73,17 @@ function handleLoginSuccess(response, role) {
     });
 }
 
-function showError(elementId, message) {
+export function showError(elementId, message) {
     const errorElement = document.getElementById(elementId);
     if (errorElement) {
         errorElement.textContent = message;
         errorElement.style.display = 'block';
     }
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        errorElement.style.display = 'none';
+    }, 5000);
 }
 
 function getCSRFToken() {
