@@ -5,8 +5,8 @@ const PATIENT_API = API_BASE_URL + '/patient'
 
 //For creating a patient in db
 export async function patientSignup(data) {
-  try {
-    const response = await fetch(`${PATIENT_API}`,
+  console.log("patientSignup :: ", data)
+  return await await fetch(`${PATIENT_API}`,
       {
         method: "POST",
         headers: {
@@ -15,16 +15,27 @@ export async function patientSignup(data) {
         body: JSON.stringify(data)
       }
     );
-    const result = await response.json();
-    if (!response.ok) {
-      throw new Error(result.message);
-    }
-    return { success: response.ok, message: result.message }
-  }
-  catch (error) {
-    console.error("Error :: patientSignup :: ", error)
-    return { success: false, message: error.message }
-  }
+
+  // try {
+  //   const response = await fetch(`${PATIENT_API}`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json"
+  //       },
+  //       body: JSON.stringify(data)
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   if (!response.ok) {
+  //     throw new Error(result.message);
+  //   }
+  //   return { success: response.ok, message: result.message }
+  // }
+  // catch (error) {
+  //   console.error("Error :: patientSignup :: ", error)
+  //   return { success: false, message: error.message }
+  // }
 }
 
 //For logging in patient

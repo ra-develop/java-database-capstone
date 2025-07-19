@@ -36,18 +36,34 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> createPatient(@RequestBody Patient patient) {
-        if (!healthcareService.validatePatient(patient)) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Patient with email or phone already exists"));
-        }
 
-        int result = patientService.createPatient(patient);
+        int result = 0;
+        try {
+            result = patientService.createPatient(patient);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", "Failed to save patient data: " + e.getMessage()));
+        }
         if (result == 1) {
             return ResponseEntity.ok(Map.of("message", "Signup successful"));
         } else {
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", "Internal server error"));
+                    .body(Map.of("error", "Some internal error occurred"));
         }
+
+
+        // if (!healthcareService.validatePatient(patient)) {
+        //     return ResponseEntity.badRequest()
+        //             .body(Map.of("error", "Patient with email or phone already exists"));
+        // }
+
+        // int result = patientService.createPatient(patient);
+        // if (result == 1) {
+        //     return ResponseEntity.ok(Map.of("message", "Signup successful"));
+        // } else {
+        //     return ResponseEntity.internalServerError()
+        //             .body(Map.of("error", "Internal server error"));
+        // }
     }
 
     @PostMapping("/login")

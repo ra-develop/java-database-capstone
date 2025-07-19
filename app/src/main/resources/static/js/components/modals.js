@@ -53,7 +53,9 @@ export function openModal(type) {
       <input type="password" id="password" placeholder="Password" class="input-field">
       <input type="text" id="phone" placeholder="Phone" class="input-field">
       <input type="text" id="address" placeholder="Address" class="input-field">
-      <button class="dashboard-btn" id="signupBtn">Signup</button>
+      <button class="dashboard-btn" id="patientSignupBtn">Signup</button>
+      <div class="error-message" id="patientSignupError"></div>
+
     `;
 
   } else if (type === 'adminLogin') {
@@ -92,7 +94,7 @@ export function openModal(type) {
   };
 
   if (type === "patientSignup") {
-    document.getElementById("signupBtn").addEventListener("click", signupPatient);
+    document.getElementById("patientSignupBtn").addEventListener("click", signupPatient);
   }
 
   if (type === "patientLogin") {

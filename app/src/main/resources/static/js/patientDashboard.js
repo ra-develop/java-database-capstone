@@ -90,16 +90,25 @@ window.signupPatient = async function () {
     const address = document.getElementById("address").value;
 
     const data = { name, email, password, phone, address };
-    const { success, message } = await patientSignup(data);
-    if (success) {
-      alert(message);
-      document.getElementById("modal").style.display = "none";
+
+    console.log("Signup Patient :: ", data)
+    const response = await patientSignup(data);
+    console.log("Response:", response);
+    const result = await response.json();
+    console.log(result);
+    if (response.ok) {
+      selectRole('loggedPatient');
+      localStorage.setItem('token', result.token)
+      closeModal();
+      // document.getElementById("modal").style.display = "none";
       window.location.reload();
+    } else {
+      throw new Error(result.error || 'An error occurred while signing up.');
     }
-    else alert(message);
   } catch (error) {
     console.error("Signup failed:", error);
-    alert("❌ An error occurred while signing up.");
+    // alert("❌ An error occurred while signing up.");
+    showError('patientSignupError', `❌ Failed to Signup: ${error.message}`);
   }
 };
 
@@ -114,8 +123,7 @@ window.loginPatient = async function () {
     }
     console.log("loginPatient :: ", data)
     const response = await patientLogin(data);
-    console.log("Status Code:", response.status);
-    console.log("Response OK:", response.ok);
+    console.log("Response:", response);
     const result = await response.json();
     console.log(result);
     if (response.ok) {
@@ -123,7 +131,7 @@ window.loginPatient = async function () {
       localStorage.setItem('token', result.token)
       window.location.href = '/pages/loggedPatientDashboard.html';
     } else {
-      throw new Error(`Invalid credentials: ${result.error}` || 'Invalid credentials');
+      throw new Error(result.error || 'Invalid credentials');
     }
   }
   catch (error) {

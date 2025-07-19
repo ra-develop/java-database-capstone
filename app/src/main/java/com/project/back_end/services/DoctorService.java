@@ -78,7 +78,6 @@ public class DoctorService {
             throw new RuntimeException("Validation failed: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Failed to save doctor: " + e.getMessage());
-            // return 0;
         }
     }
 
@@ -121,7 +120,6 @@ public class DoctorService {
             return 1;
         } catch (Exception e) {
             throw new RuntimeException("Failed to save doctor: " + e.getMessage());
-            // return 0;
         }
     }
 

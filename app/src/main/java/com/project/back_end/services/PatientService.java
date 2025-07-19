@@ -5,6 +5,11 @@ import com.project.back_end.models.Appointment;
 import com.project.back_end.models.Patient;
 import com.project.back_end.repo.AppointmentRepository;
 import com.project.back_end.repo.PatientRepository;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.context.annotation.Lazy;
 
@@ -34,12 +40,25 @@ public class PatientService {
 
     @Transactional
     public int createPatient(Patient patient) {
+
         try {
+            if (patientRepository.findByEmail(patient.getEmail()) != null) {
+                throw new RuntimeException("Patient with this email already exists");
+            }
             patientRepository.save(patient);
             return 1;
+        } catch (ConstraintViolationException  e) {  // Catch ConstraintViolationException directly
+            Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+            
+            List<String> errorMessages = violations.stream()
+                .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                .collect(Collectors.toList());
+                
+            throw new RuntimeException("Validation failed: " + String.join(", ", errorMessages));
+        } catch (ValidationException e) {
+            throw new RuntimeException("Validation failed: " + e.getMessage());
         } catch (Exception e) {
-            // Log the error
-            return 0;
+            throw new RuntimeException("Failed to save patient: " + e.getMessage());
         }
     }
 
