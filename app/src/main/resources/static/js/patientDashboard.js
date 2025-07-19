@@ -1,11 +1,10 @@
 // patientDashboard.js
 import { getDoctors } from './services/doctorServices.js';
-import { openModal } from './components/modals.js';
+import { openModal, closeModal } from './components/modals.js';
 import { createDoctorCard } from './components/doctorCard.js';
 import { filterDoctors } from './services/doctorServices.js';//call the same function to avoid duplication coz the functionality was same
 import { patientSignup, patientLogin } from './services/patientServices.js';
-
-
+import { showError } from '../js/services/index.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   loadDoctorCards();
@@ -106,30 +105,29 @@ window.signupPatient = async function () {
 
 window.loginPatient = async function () {
   try {
-    const email = document.getElementById("email").value;
+    const identifier = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     const data = {
-      email,
+      identifier,
       password
     }
     console.log("loginPatient :: ", data)
     const response = await patientLogin(data);
     console.log("Status Code:", response.status);
     console.log("Response OK:", response.ok);
+    const result = await response.json();
+    console.log(result);
     if (response.ok) {
-      const result = await response.json();
-      console.log(result);
       selectRole('loggedPatient');
       localStorage.setItem('token', result.token)
       window.location.href = '/pages/loggedPatientDashboard.html';
     } else {
-      alert('❌ Invalid credentials!');
+      throw new Error(`Invalid credentials: ${result.error}` || 'Invalid credentials');
     }
   }
   catch (error) {
-    alert("❌ Failed to Login : ", error);
-    console.log("Error :: loginPatient :: ", error)
+    showError('patientLoginError', `❌ Failed to Login: ${error.message}`);
   }
 
 

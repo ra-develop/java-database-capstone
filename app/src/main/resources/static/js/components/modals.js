@@ -42,10 +42,10 @@ export function openModal(type) {
         <h2>Patient Login</h2>
         <input type="text" id="email" placeholder="Email" class="input-field">
         <input type="password" id="password" placeholder="Password" class="input-field">
-        <button class="dashboard-btn" id="loginBtn">Login</button>
+        <button class="dashboard-btn" id="patientLoginBtn">Login</button>
+        <div class="error-message" id="patientLoginError"></div>
       `;
-  }
-  else if (type === "patientSignup") {
+  } else if (type === "patientSignup") {
     modalContent = `
       <h2>Patient Signup</h2>
       <input type="text" id="name" placeholder="Name" class="input-field">
@@ -96,7 +96,7 @@ export function openModal(type) {
   }
 
   if (type === "patientLogin") {
-    document.getElementById("loginBtn").addEventListener("click", loginPatient);
+    document.getElementById("patientLoginBtn").addEventListener("click", loginPatient);
   }
 
   if (type === 'addDoctor') {

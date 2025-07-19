@@ -142,7 +142,6 @@ window.adminAddDoctor = async function() {
         }
     } catch (error) {
         console.error('Add doctor error:', error);
-        const errMessage = error.message;
         showError('addDoctorError', error.message || 'Failed to add doctor. Please try again.');
         // alert(error.message || 'Failed to add doctor. Please try again.');
     }
