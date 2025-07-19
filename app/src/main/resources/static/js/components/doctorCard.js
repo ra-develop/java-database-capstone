@@ -160,7 +160,7 @@ function createBookButton(doctor, isLoggedIn) {
     button.className = 'btn btn-primary';
     button.textContent = 'Book Now';
 
-    button.addEventListener('click', async () => {
+    button.addEventListener('click', async (event) => {  // Add event parameter
         if (!isLoggedIn) {
             alert('Please login to book an appointment');
             return;
@@ -171,7 +171,7 @@ function createBookButton(doctor, isLoggedIn) {
             if (!token) throw new Error('Session expired');
 
             const patientData = await getPatientData(token);
-            showBookingOverlay(doctor, patientData);
+            showBookingOverlay(event, doctor, patientData);  // Pass event first
         } catch (error) {
             console.error('Booking error:', error.message);
             alert(`Booking failed: ${error.message}`);
@@ -198,6 +198,7 @@ function showBookingOverlay(e, doctor, patient) {
   modalApp.classList.add("modalApp");
 
   modalApp.innerHTML = `
+    <span class="close" id="closeModal">&times;</span>
     <h2>Book Appointment</h2>
     <input class="input-field" type="text" value="${patient.name}" disabled />
     <input class="input-field" type="text" value="${doctor.name}" disabled />
@@ -212,6 +213,11 @@ function showBookingOverlay(e, doctor, patient) {
   `;
 
   document.body.appendChild(modalApp);
+  
+  document.getElementById('closeModal').onclick = () => {
+    modalApp.remove();
+    ripple.remove();
+  };
 
   setTimeout(() => modalApp.classList.add("active"), 600);
 
