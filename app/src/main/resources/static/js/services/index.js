@@ -6,10 +6,32 @@ const API_ENDPOINTS = {
     doctor: `${API_BASE_URL}/doctor/login`,
 };
 
-window.onload = function() {
-    document.getElementById('adminBtn').addEventListener('click', () => openModal('adminLogin'));
-    document.getElementById('doctorBtn').addEventListener('click', () => openModal('doctorLogin'));
-};
+// window.onload = function() {
+//     document.getElementById('adminBtn').addEventListener('click', () => openModal('adminLogin'));
+//     document.getElementById('doctorBtn').addEventListener('click', () => openModal('doctorLogin'));
+// };
+
+// Initialize dashboard when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupEventListeners();
+});
+
+/**
+ * Sets up all event listeners
+ */
+function setupEventListeners() {
+    // Add Admin button
+    const adminBtn = document.getElementById('adminBtn');
+    if (adminBtn) {
+        adminBtn.addEventListener('click', () => openModal('adminLogin'));
+    }
+    // Add Doctor button
+    const doctorBtn = document.getElementById('doctorBtn');
+    if (doctorBtn) {
+        doctorBtn.addEventListener('click', () => openModal('doctorLogin'));
+    }
+}
+
 
 window.adminLoginHandler = async function(event) {
     event.preventDefault();

@@ -112,22 +112,22 @@ public class HealthcareService {
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Object> filterDoctor(String name, String specialty, String time) {
+    public Map<String, Object> filterDoctor(String name, String time, String specialty) {
         Map<String, Object> response = new HashMap<>();
 
-        if (name != null && specialty != null && time != null) {
+        if (!name.equals("null") && !specialty.equals("null") && !time.equals("null")) {
             return doctorService.filterDoctorsByNameSpecilityandTime(name, specialty, time);
-        } else if (name != null && time != null) {
+        } else if (!name.equals("null") && !time.equals("null")) {
             return doctorService.filterDoctorByNameAndTime(name, time);
-        } else if (name != null && specialty != null) {
+        } else if (!name.equals("null") && !specialty.equals("null")) {
             return doctorService.filterDoctorByNameAndSpecility(name, specialty);
-        } else if (specialty != null && time != null) {
+        } else if (!specialty.equals("null") && !time.equals("null")) {
             return doctorService.filterDoctorByTimeAndSpecility(specialty, time);
-        } else if (name != null) {
+        } else if (!name.equals("null")) {
             return doctorService.findDoctorByName(name);
-        } else if (specialty != null) {
+        } else if (!specialty.equals("null")) {
             return doctorService.filterDoctorBySpecility(specialty);
-        } else if (time != null) {
+        } else if (!time.equals("null")) {
             return doctorService.filterDoctorsByTime(time);
         } else {
             response.put("doctors", doctorService.getDoctors());
