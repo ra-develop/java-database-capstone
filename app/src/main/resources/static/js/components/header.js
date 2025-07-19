@@ -66,6 +66,7 @@ function renderHeader() {
     } 
     else if (role === "loggedPatient") {
         headerContent += `
+            <button id="selectDoctorBtn" class="nav-btn">Doctors</button>
             <button id="appointmentsBtn" class="nav-btn">Appointments</button>
             <button id="logoutBtn" class="nav-btn">Logout</button>`;
         // headerContent += `
@@ -104,6 +105,10 @@ function attachHeaderButtonListeners() {
 
     document.getElementById("signupBtn")?.addEventListener("click", () => {
         openModal('patientSignup');
+    });
+
+    document.getElementById("selectDoctorBtn")?.addEventListener("click", () => {
+        window.location.href = "/pages/loggedPatientDashboard.html";
     });
 
     document.getElementById("appointmentsBtn")?.addEventListener("click", () => {

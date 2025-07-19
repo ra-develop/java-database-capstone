@@ -181,6 +181,7 @@ public class PatientService {
 
             // Create a response with only necessary patient details
             Map<String, Object> patientDetails = new HashMap<>();
+            patientDetails.put("id", patient.getId());
             patientDetails.put("name", patient.getName());
             patientDetails.put("email", patient.getEmail());
             patientDetails.put("phone", patient.getPhone());

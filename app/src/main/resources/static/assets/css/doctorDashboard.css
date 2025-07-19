@@ -130,22 +130,7 @@ html, body {
     cursor: pointer;
 }
 
-/* Extras */
-.prescription-btn {
-    background-color: #007bff; /* Blue for prescription button */
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease, brightness 0.2s ease;
-    font-size: 14px;
-}
 
-.prescription-btn:hover {
-    transform: scale(1.05); /* Slightly enlarge */
-    filter: brightness(1.1); /* Slightly brighter */
-}
 
 .no-patient-record-message {
     font-style: italic;
