@@ -38,7 +38,7 @@ public class Doctor {
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must contain at least 1 uppercase, 1 lowercase, 1 digit and 1 special character")
+    // @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must contain at least 1 uppercase, 1 lowercase, 1 digit and 1 special character")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
@@ -46,7 +46,7 @@ public class Doctor {
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
     private String phone;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> availableTimes;
 
     @ElementCollection

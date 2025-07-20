@@ -1,5 +1,177 @@
 /* this is the style sheet file for index.htlm  */
 
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base */
+html, body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Layout Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Heading */
+h2 {
+    font-size: 48px;
+    margin-bottom: 50px;
+    color: #003e3e;
+    font-weight: bold;
+    font-family: 'Alegreya', 'Roboto', sans-serif;
+}
+
+/* Main Section */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Placeholder for background image */
+    /* background-image: url('YOUR_BACKGROUND_IMAGE_PATH_HERE');  */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Buttons */
+button {
+    background-color: #015c5d;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    width: 200px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #A62B1F; /* Bold red on hover */
+}
+
+/* Dashboard Buttons */
+.dashboard-btn {
+    background-color: #015c5d; /* Base green */
+}
+
+.dashboard-btn:hover {
+    background-color: #003e3e; /* Deep teal on hover */
+}
+
+/* Modal specific styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be adjusted */
+    max-width: 500px; /* Max width for larger screens */
+    border-radius: 10px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/*
+The following styles were mentioned in the comments but don't have explicit requirements
+in the provided prompt to be added to index.css.
+They are included here as a placeholder based on the "Footer and Header Styles" and "Interactive Styles"
+sections in your CSS comments, assuming they might exist in the global style.css or elsewhere.
+I'm adding them as comments or with minimal styling to ensure completeness of the CSS structure based on your initial input.
+*/
+
+/* Footer Styles (placeholder, assuming details in style.css or dynamic generation) */
+/*
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    flex-wrap: wrap; // Responsive for mobile
+}
+*/
+
+/* Header Styles (placeholder, assuming details in style.css or dynamic generation) */
+/*
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #e0e0e0;
+}
+
+.header .logo {
+    // Styles for logo
+}
+
+.header .nav-items {
+    // Styles for navigation
+}
+*/
+
+/* Interactive Styles (placeholders, assuming details in style.css or specific components) */
+/*
+.input-field {
+    // styles for text inputs
+}
+
+.input-field:focus {
+    // focus styles
+}
+
+.select-dropdown {
+    // styles for select elements
+}
+
+.checkbox-group {
+    // styles for checkboxes
+}
+*/
+
+
 /* 
 **Global Reset (`*`)**
 

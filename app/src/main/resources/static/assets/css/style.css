@@ -380,3 +380,45 @@
   accent-color: #015c5db8; 
 }
 
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    display: none;
+}
+
+.prescription-btn {
+    /* Size */
+    width: 30px;
+    height: 30px;
+    min-width: 30px; /* Prevent text from expanding it */
+    min-height: 30px;
+    
+    /* Appearance */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    
+    /* Interactivity */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove padding to maintain exact size */
+    
+    /* Transition */
+    transition: transform 0.2s ease, filter 0.2s ease;
+    font-size: 14px;
+}
+
+.prescription-btn:hover {
+    transform: scale(1.1); /* Slightly enlarge */
+    filter: brightness(1.1); /* Brighten appearance */
+}
+
+.prescription-btn:active {
+    transform: scale(0.95); /* Slightly shrink when clicked */
+}

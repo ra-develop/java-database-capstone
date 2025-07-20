@@ -1,0 +1,7 @@
+{
+    "request": "curl -X POST \"http://localhost:8080/patient/login\" \\  -H \"Content-Type: application/json\" \\  -d '{    \"identifier\": \"ruby.w@example.com\",    \"password\": \"rubypass\"  }' -o patient-login.json",
+    
+    "response": {
+        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJydWJ5LndAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTI5NzIwODEsImV4cCI6MTc1MzA1ODQ4MX0.jJF7OBiOmp43as5gnJ4XPhHiZL4nx4qzhBzY3l_pGtg"
+    }
+}

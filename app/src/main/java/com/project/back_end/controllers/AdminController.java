@@ -1,7 +1,32 @@
-
 package com.project.back_end.controllers;
 
+import com.project.back_end.models.Admin;
+import com.project.back_end.services.HealthcareService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("${api.path}" + "admin")
 public class AdminController {
+
+    private final HealthcareService healthcareService;
+
+    public AdminController(HealthcareService healthcareService) {
+        this.healthcareService = healthcareService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin) {
+        return healthcareService.validateAdmin(admin);
+    }
+}
+
+
+// package com.project.back_end.controllers;
+
+// public class AdminController {
 
 // 1. Set Up the Controller Class:
 //    - Annotate the class with `@RestController` to indicate that it's a REST controller, used to handle web requests and return JSON responses.
@@ -23,5 +48,5 @@ public class AdminController {
 
 
 
-}
+// }
 

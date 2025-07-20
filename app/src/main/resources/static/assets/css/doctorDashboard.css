@@ -1,4 +1,225 @@
 /* This is the style sheet for the doctorDashboard.html */
+
+/*
+Reset & Base Styles:
+Apply global reset with * { margin: 0; padding: 0; box-sizing: border-box; }
+Set fonts and page height in html, body
+Layout:
+Use .wrapper as a vertical flex container
+Space and align .main-content elements for search, filters, and the table
+Search and Filter Styling:
+Input and buttons are padded, rounded, and spaced
+Button hover: background color shift (#015c5d → #017d7e)
+Table Styling:
+table: Full width, border-collapse
+thead: Dark semi-transparent background
+tbody tr: Alternating row colors, highlight on hover
+Extras:
+.prescription-btn: Add scale/brightness hover effect
+.noPatientRecord: Italic, gray text when no records
+Responsive Design:
+Mobile-friendly layout using flexible widths
+Add media queries to adjust font sizes and layout for small screens
+*/
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif; /* Or 'Roboto', sans-serif if preferred */
+}
+
+/* Layout */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    gap: 20px; /* Space between elements */
+}
+
+/* Search and Filter Styling */
+#searchBar {
+    width: 90%;
+    max-width: 600px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+.filter-section button,
+.filter-section input[type="date"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-section button {
+    background-color: #015c5d; /* Teal green */
+    color: white;
+}
+
+.filter-section button:hover {
+    background-color: #017d7e; /* Darker teal on hover */
+}
+
+.filter-section input[type="date"] {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Table Styling */
+.table-container {
+    width: 95%;
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    background-color: white;
+}
+
+#patientTable {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Ensure table doesn't get too narrow */
+}
+
+#patientTable thead {
+    background-color: rgba(0, 62, 62, 0.9); /* Dark semi-transparent teal */
+    color: white;
+}
+
+#patientTable th,
+#patientTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#patientTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternating row colors */
+}
+
+#patientTable tbody tr:hover {
+    background-color: #e0e0e0; /* Highlight on hover */
+    cursor: pointer;
+}
+
+
+
+.no-patient-record-message {
+    font-style: italic;
+    color: #888;
+    margin-top: 20px;
+}
+
+/* Modal Styling (re-used from adminDashboard.css or general style.css if applicable) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 700px; /* Adjusted for potential forms/details */
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px;
+    }
+
+    .filter-section {
+        flex-direction: column;
+        width: 95%;
+        max-width: unset;
+    }
+
+    #searchBar {
+        width: 95%;
+    }
+
+    #patientTable th,
+    #patientTable td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .table-container {
+        border-radius: 0; /* Remove border-radius for full width on small screens */
+    }
+
+    /* Adjust modal for smaller screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
 /* 
 **Table Header (`.table-header`)**
 

@@ -1,3 +1,56 @@
+/**
+ * Footer Component - Renders consistent footer across all pages
+ * Contains branding, navigation links, and legal information
+ */
+
+function renderFooter() {
+    const footer = document.getElementById("footer");
+    if (!footer) return;
+
+    footer.innerHTML = `
+        <footer class="footer">
+            <div class="footer-container">
+                <!-- Branding Section -->
+                <div class="footer-logo">
+                    <img src="../../assets/images/logo/logo.png" alt="Hospital CMS Logo">
+                    <p>© ${new Date().getFullYear()} Hospital CMS. All Rights Reserved.</p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="footer-links">
+                    <!-- Company Links -->
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="/about">About Us</a>
+                        <a href="/careers">Careers</a>
+                        <a href="/press">Press</a>
+                    </div>
+
+                    <!-- Support Links -->
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <a href="/account">Account</a>
+                        <a href="/help">Help Center</a>
+                        <a href="/contact">Contact Us</a>
+                    </div>
+
+                    <!-- Legal Links -->
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="/terms">Terms & Conditions</a>
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/licensing">Licensing</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    `;
+}
+
+// Initialize footer on page load
+document.addEventListener("DOMContentLoaded", renderFooter);
+
+
 /*
   Function to render the footer content into the page
       Select the footer element from the DOM
