@@ -6,8 +6,14 @@ import com.project.back_end.models.Patient;
 import com.project.back_end.repo.AppointmentRepository;
 import com.project.back_end.repo.DoctorRepository;
 import com.project.back_end.repo.PatientRepository;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -17,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.context.annotation.Lazy;
 
 
@@ -100,8 +109,9 @@ public class AppointmentService {
             response.put("message", "Appointment updated successfully");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            response.put("message", "Failed to update appointment");
-            return ResponseEntity.internalServerError().body(response);
+            response.put("message", "Failed to update appointment: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+            // throw new RuntimeException("Failed to save doctor: " + e.getMessage());
         }
     }
 

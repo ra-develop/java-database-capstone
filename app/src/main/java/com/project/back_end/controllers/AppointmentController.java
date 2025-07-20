@@ -3,11 +3,21 @@ package com.project.back_end.controllers;
 import com.project.back_end.models.Appointment;
 import com.project.back_end.services.AppointmentService;
 import com.project.back_end.services.HealthcareService;
+
+import jakarta.transaction.RollbackException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appointments")
@@ -68,18 +78,121 @@ public class AppointmentController {
         }
     }
 
+    // @PutMapping("/{token}")
+    // public ResponseEntity<Map<String, String>> updateAppointment(
+    // @RequestBody Appointment appointment,
+    // @PathVariable String token) {
+
+    // ResponseEntity<Map<String, String>> validationResponse =
+    // healthcareService.validateToken(token, "patient");
+
+    // if (validationResponse.getStatusCode().isError()) {
+    // return validationResponse;
+    // }
+
+    // try {
+    // ResponseEntity<Map<String, String>> updateResult =
+    // appointmentService.updateAppointment(appointment);
+    // return updateResult;
+    // } catch (ConstraintViolationException e) { // Catch
+    // ConstraintViolationException directly
+    // Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+    // List<String> errorMessages = violations.stream()
+    // .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+    // .collect(Collectors.toList());
+    // return ResponseEntity.badRequest().body(Map.of("message", "Validation failed:
+    // " + String.join(", ", errorMessages)));
+    // } catch (TransactionSystemException e) { // Catch TransactionSystemException
+    // directly
+    // Throwable cause = e.getCause();
+    // if (cause instanceof RollbackException) {
+    // if (cause.getCause() instanceof ConstraintViolationException) {
+    // Set<ConstraintViolation<?>> violations = ((ConstraintViolationException)
+    // cause.getCause()).getConstraintViolations();
+    // List<String> errorMessages = violations.stream()
+    // .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+    // .collect(Collectors.toList());
+    // return ResponseEntity.badRequest().body(Map.of("message", "Validation failed:
+    // " + String.join(", ", errorMessages)));
+    // } else {
+    // return ResponseEntity.badRequest().body(Map.of("message", "Failed to update
+    // appointment: " + e.getMessage()));
+    // }
+    // } else {
+    // return ResponseEntity.badRequest().body(Map.of("message", "Failed to update
+    // appointment: " + e.getMessage()));
+    // }
+    // } catch (ValidationException e) {
+    // return ResponseEntity.badRequest().body(Map.of("message", "Validation failed:
+    // " + e.getMessage()));
+    // } catch (Exception e) {
+    // return ResponseEntity.badRequest().body(Map.of("message", "Failed to update
+    // appointment: " + e.getMessage()));
+    // }
+
+    // }
+
     @PutMapping("/{token}")
     public ResponseEntity<Map<String, String>> updateAppointment(
             @RequestBody Appointment appointment,
             @PathVariable String token) {
 
         ResponseEntity<Map<String, String>> validationResponse = healthcareService.validateToken(token, "patient");
-
         if (validationResponse.getStatusCode().isError()) {
             return validationResponse;
         }
 
-        return appointmentService.updateAppointment(appointment);
+        try {
+            ResponseEntity<Map<String, String>> updateResult = appointmentService.updateAppointment(appointment);
+            return updateResult;
+        } catch (Exception e) {
+            return handleUpdateException(e);
+        }
+    }
+
+    private ResponseEntity<Map<String, String>> handleUpdateException(Exception e) {
+        // Handle ConstraintViolationException (direct or wrapped)
+        ConstraintViolationException constraintViolation = extractConstraintViolation(e);
+        if (constraintViolation != null) {
+            String errorMessage = constraintViolation.getConstraintViolations().stream()
+                    .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                    .collect(Collectors.joining(", "));
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Validation failed: " + errorMessage));
+        }
+
+        // Handle other specific exceptions
+        if (e instanceof ValidationException) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Validation failed: " + e.getMessage()));
+        }
+
+        // Generic error handling
+        return ResponseEntity.badRequest()
+                .body(Map.of("message", "Failed to update appointment: " + e.getMessage()));
+    }
+
+    private ConstraintViolationException extractConstraintViolation(Throwable e) {
+        // Check if exception is directly a ConstraintViolationException
+        if (e instanceof ConstraintViolationException) {
+            return (ConstraintViolationException) e;
+        }
+
+        // Check if exception is wrapped in TransactionSystemException
+        if (e instanceof TransactionSystemException) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RollbackException && cause.getCause() instanceof ConstraintViolationException) {
+                return (ConstraintViolationException) cause.getCause();
+            }
+        }
+
+        // Check nested causes
+        Throwable cause = e.getCause();
+        if (cause != null && cause != e) {
+            return extractConstraintViolation(cause);
+        }
+
+        return null;
     }
 
     @DeleteMapping("/{id}/{token}")
