@@ -1,0 +1,67 @@
+{
+    "request": "curl -X GET \"http://localhost:8080/patient/19/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJydWJ5LndAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTI5NzIwODEsImV4cCI6MTc1MzA1ODQ4MX0.jJF7OBiOmp43as5gnJ4XPhHiZL4nx4qzhBzY3l_pGtg\" -H \"Content-Type: application/json\" -o apointments.json",
+    "response": {
+        "appointments": [
+            {
+                "id": 19,
+                "doctorId": 1,
+                "doctorName": "Dr. Emily Adams",
+                "patientId": 19,
+                "patientName": "Ruby Ward",
+                "patientEmail": "ruby.w@example.com",
+                "patientPhone": "889-999-9999",
+                "patientAddress": "120 Fir St, Woodland",
+                "appointmentTime": "2025-07-21T09:00:00",
+                "status": 0,
+                "appointmentDate": "2025-07-21",
+                "appointmentTimeOnly": "09:00:00",
+                "endTime": "2025-07-21T10:00:00"
+            },
+            {
+                "id": 44,
+                "doctorId": 20,
+                "doctorName": "Dr. Zoe King",
+                "patientId": 19,
+                "patientName": "Ruby Ward",
+                "patientEmail": "ruby.w@example.com",
+                "patientPhone": "889-999-9999",
+                "patientAddress": "120 Fir St, Woodland",
+                "appointmentTime": "2025-05-19T14:00:00",
+                "status": 0,
+                "appointmentDate": "2025-05-19",
+                "appointmentTimeOnly": "14:00:00",
+                "endTime": "2025-05-19T15:00:00"
+            },
+            {
+                "id": 68,
+                "doctorId": 18,
+                "doctorName": "Dr. Nora Walker",
+                "patientId": 19,
+                "patientName": "Ruby Ward",
+                "patientEmail": "ruby.w@example.com",
+                "patientPhone": "889-999-9999",
+                "patientAddress": "120 Fir St, Woodland",
+                "appointmentTime": "2025-04-18T13:00:00",
+                "status": 1,
+                "appointmentDate": "2025-04-18",
+                "appointmentTimeOnly": "13:00:00",
+                "endTime": "2025-04-18T14:00:00"
+            },
+            {
+                "id": 102,
+                "doctorId": 2,
+                "doctorName": "Dr. Mark Johnson",
+                "patientId": 19,
+                "patientName": "Ruby Ward",
+                "patientEmail": "ruby.w@example.com",
+                "patientPhone": "889-999-9999",
+                "patientAddress": "120 Fir St, Woodland",
+                "appointmentTime": "2025-04-10T11:00:00",
+                "status": 1,
+                "appointmentDate": "2025-04-10",
+                "appointmentTimeOnly": "11:00:00",
+                "endTime": "2025-04-10T12:00:00"
+            }
+        ]
+    }
+}

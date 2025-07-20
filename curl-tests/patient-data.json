@@ -1,0 +1,11 @@
+{
+    "request": "curl -X GET \"http://localhost:8080/patient/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJydWJ5LndAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTI5NzIwODEsImV4cCI6MTc1MzA1ODQ4MX0.jJF7OBiOmp43as5gnJ4XPhHiZL4nx4qzhBzY3l_pGtg\" \\  -H \"Content-Type: application/json\" -o patient-data.json",
+    "response": {
+        "patient": {
+            "phone": "889-999-9999",
+            "name": "Ruby Ward",
+            "id": 19,
+            "email": "ruby.w@example.com"
+        }
+    }
+}
