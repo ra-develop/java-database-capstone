@@ -11,7 +11,7 @@
     <script src="../js/util.js" defer></script>
     <script type="module" src="../js/components/header.js" defer></script>
     <script type="module" src="../js/components/footer.js" defer></script>
-    <script src="../js/components/patientRows.js" defer></script>
+    <script type="module" src="../js/components/patientRows.js" defer></script>
     <script>
         // Immediately clear from URL after loading
         window.history.replaceState({}, document.title, window.location.pathname);
@@ -24,8 +24,8 @@
             <main class="main-content">
                 <input type="text" id="searchBar" placeholder="Search patients by name or ID" />
                 <div class="filter-section">
-                    <button id="todayAppointmentsBtn">Today's Appointments</button>
-                    <input type="date" id="dateFilter" />
+                    <button id="todayButton">Today's Appointments</button>
+                    <input type="date" id="datePicker" />
                 </div>
                 <div class="table-container">
                     <table id="patientTable">
@@ -35,6 +35,7 @@
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Email</th>
+                                <th>Appointment Time</th>
                                 <th>Prescription</th>
                             </tr>
                         </thead>

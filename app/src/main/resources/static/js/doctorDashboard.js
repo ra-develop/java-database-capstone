@@ -81,12 +81,12 @@ async function loadAppointments() {
         }
 
         // Create and append rows for each appointment
-        appointments.forEach(appointment => {
+        appointments.appointments.forEach(appointment => {
             const patient = {
-                id: appointment.patientId,
-                name: appointment.patientName,
-                phone: appointment.patientPhone,
-                email: appointment.patientEmail,
+                id: appointment.patient.id,
+                name: appointment.patient.name,
+                phone: appointment.patient.phone,
+                email: appointment.patient.email,
                 appointmentTime: appointment.appointmentTime,
                 status: appointment.status
             };

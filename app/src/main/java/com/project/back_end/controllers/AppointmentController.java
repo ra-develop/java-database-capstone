@@ -5,7 +5,6 @@ import com.project.back_end.services.AppointmentService;
 import com.project.back_end.services.HealthcareService;
 
 import jakarta.transaction.RollbackException;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 
@@ -14,9 +13,7 @@ import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController

@@ -23,8 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Lazy;
 
@@ -160,7 +158,7 @@ public class AppointmentService {
         LocalDateTime end = date.atTime(LocalTime.MAX);
 
         List<Appointment> appointments;
-        if (pname == null || pname.isEmpty()) {
+        if (pname.equals("null") || pname.isEmpty()) {
             appointments = appointmentRepository.findByDoctorIdAndAppointmentTimeBetween(doctor.get().getId(), start, end);
         } else {
             appointments = appointmentRepository
